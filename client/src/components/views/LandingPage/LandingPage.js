@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import Table from "react-bootstrap/Table";
 import Spinner from "react-bootstrap/Spinner";
 import Axios from "axios";
 import List from "../Components/List/List";
-
-// datepicker
-import WeekPicker from "../Components/WeekPicker/WeekPicker";
 
 function LandingPage() {
 	const [SelectedDate, setSelectedDate] = useState("");
@@ -23,9 +21,11 @@ function LandingPage() {
 			}
 		});
 	}, []);
+	Chart && console.log("landingpage", Chart);
 	const renderList = Chart.map((song, index) => {
-		return <List chart={Chart} />;
+		return <List song={song} />;
 	});
+
 	return (
 		<>
 			<div>
@@ -44,9 +44,10 @@ function LandingPage() {
 					<Spinner animation='border' />
 				</div>
 			) : (
-				<div>{renderList}</div>
+				<Table style={{ verticalAlign: "middle" }} striped bordered hover>
+					{renderList}
+				</Table>
 			)}
-			<div></div>
 		</>
 	);
 }

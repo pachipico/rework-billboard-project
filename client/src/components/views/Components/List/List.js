@@ -1,26 +1,37 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
 import Image from "react-bootstrap/Image";
 
-function List({ chart }) {
-	const renderData = chart.map((song) => {
-		return (
-			<tr style={{ verticalAlign: "middle" }}>
+function List({ song }) {
+	let artist = song.artist;
+
+	const unNessessary = [" & ", " Featuring ", " X ", " + ", " x ", "Duet With"];
+	unNessessary.map((string) => {
+		artist = artist.replace(string, ",");
+	});
+	artist = artist.split(",");
+
+	return (
+		<tbody>
+			<tr>
 				<td>{song.rank}</td>
-				<td width='5%'>
+				<td style={{ width: "5%" }}>
 					<Image src={song.cover} fluid />
 				</td>
 				<td>{song.title}</td>
-
-				<td>{song.artist}</td>
+				<td>
+					{artist.map((artist) => {
+						return (
+							<a href={`/details/${artist}`}>
+								{`${artist}`}&nbsp;&nbsp;&nbsp;&nbsp;
+							</a>
+						);
+					})}
+				</td>
 			</tr>
-		);
-	});
-	return (
-		<Table striped bordered hover>
-			<tbody>{renderData}</tbody>
-		</Table>
+		</tbody>
 	);
 }
 

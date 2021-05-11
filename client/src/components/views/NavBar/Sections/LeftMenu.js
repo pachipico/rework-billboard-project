@@ -11,7 +11,9 @@ function LeftMenu(props) {
 			</Menu.Item>
 			<SubMenu title={<span>Blogs</span>}>
 				<Menu.Item key='setting:1'>
-					<a href='/search'>Search Specific Chart</a>
+					<a href='/search'>
+						Search past <span style={{ color: "red" }}>Hot 100</span>
+					</a>
 				</Menu.Item>
 				<Menu.Item key='setting:2'>Option 2</Menu.Item>
 
