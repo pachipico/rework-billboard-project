@@ -5,13 +5,16 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Image from "react-bootstrap/Image";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import { Facebook, Twitter } from "react-bootstrap-icons";
+import "./MainImage.css";
 
 function MainImage({ data }) {
 	return (
 		<div style={{ marginBottom: "50px" }}>
 			<Jumbotron>
 				<Container>
+					<Row id='mainHeader'>
+						<Col>{data.strArtist}</Col>
+					</Row>
 					<Row
 						style={{
 							height: "300px",
@@ -32,8 +35,6 @@ function MainImage({ data }) {
 						</Col>
 
 						<Col lg={4}>
-							<h1>{data.strArtist}</h1>
-							<br />
 							<p>Label: {data.strLabel ? data.strLabel : "No Data"}</p>
 							<p>
 								Born year: {data.intBornYear ? data.intBornYear : "No Data"}
@@ -42,21 +43,7 @@ function MainImage({ data }) {
 								Debut: {data.intFormedYear ? data.intFormedYear : "No Data"}
 							</p>
 						</Col>
-						<Col lg={4}>
-							<div>
-								<a href={`https://${data.strFacebook}`} target='_blank'>
-									FaceBook
-								</a>
-								<br />
-								<a href={`https://${data.strTwitter}`} target='_blank'>
-									Tweeter
-								</a>
-								<br />
-								<a href={`https://${data.strWebsite}`} target='_blank'>
-									{data.strWebsite}
-								</a>
-							</div>
-						</Col>
+						<Col lg={4}></Col>
 					</Row>
 				</Container>
 			</Jumbotron>

@@ -3,3 +3,10 @@ p {
 	line-height: 2;
 	margin-top: 40px;
 }
+
+#contact,
+#profile,
+#youtube {
+	padding: 0px 40px;
+	margin-top: 40px;
+}
