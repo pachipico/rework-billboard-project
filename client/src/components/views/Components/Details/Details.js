@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Tabs from "react-bootstrap/Tabs";
-
+import CardDetail from "../CardDetail/CardDetail";
 import Tab from "react-bootstrap/Tab";
-import Media from "react-bootstrap/Media";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import "./Details.css";
+import Col from "react-bootstrap/Col";
 
 function Details({ data, videoData }) {
 	const [DetailActivated, setDetailActivated] = useState(false);
 	const [YoutubeActivated, setYoutubeActivated] = useState(false);
 	console.log("videoData", videoData);
-	console.log(typeof videoData);
+
 	const biography = () => {
 		if (data.strBiographyEN) {
 			if (!DetailActivated) {
@@ -31,7 +33,7 @@ function Details({ data, videoData }) {
 			}
 		}
 	};
-	const youtubeRender = (song) => {};
+
 	return (
 		<div>
 			<Tabs defaultActiveKey='profile' id='uncontrolled-tab-example'>
@@ -39,42 +41,22 @@ function Details({ data, videoData }) {
 					<div id='profile'>{biography()}</div>
 				</Tab>
 				<Tab eventKey='Youtube' title='Youtube'>
-					<ul id='youtube' className='list-unstyled'>
-						{videoData
-							? videoData.map((song) => {
-									if (song.strTrackThumb) {
-										return (
-											<Media as='li'>
-												<img
-													width={64}
-													height={64}
-													className='mr-3'
-													src={song.strTrackThumb}
-													alt={song.strTrack}
-												/>
-												<Media.Body>
-													<h5>{song.strTrack}</h5>
-													{() => {
-														if (YoutubeActivated) {
-															return <p>{song.strDescriptionEN}</p>;
-														} else {
-															return (
-																<p>
-																	{song.strDescriptionEN.slice(0, 200)}...
-																	<a onClick={() => setYoutubeActivated(true)}>
-																		read more
-																	</a>
-																</p>
-															);
-														}
-													}}
-												</Media.Body>
-											</Media>
-										);
-									}
-							  })
-							: null}
-					</ul>
+					{/* need to use grid to make it clean */}
+					<Container style={{ textAlign: "center" }}>
+						<Row>
+							{videoData.map((song) => {
+								return (
+									<>
+										{song.strTrackThumb && (
+											<Col lg={3} md={4} style={{ margin: " 20px 0px" }}>
+												<CardDetail song={song}></CardDetail>
+											</Col>
+										)}
+									</>
+								);
+							})}
+						</Row>
+					</Container>
 				</Tab>
 				<Tab eventKey='contact' title='Contact'>
 					<div id='contact'>

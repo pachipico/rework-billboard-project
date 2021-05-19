@@ -26,8 +26,8 @@ function MainImage({ data }) {
 						<Col lg={4} md={4}>
 							<Image
 								style={{
-									width: "100%",
-									height: "80%",
+									width: "80%",
+									height: "60%",
 									boxShadow: "1px 2px 3px rgba(0,0,0,.5)",
 								}}
 								src={data.strArtistThumb}

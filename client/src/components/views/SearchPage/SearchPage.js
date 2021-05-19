@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Container from "react-bootstrap/Container";
+import Table from "react-bootstrap/Table";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
@@ -36,24 +36,28 @@ function SearchPage() {
 		const variable = {
 			today,
 		};
-		Axios.post("/api/chart/searchChart", variable).then((response) => {
-			if (response.data.success) {
-				setWeek(response.data.chart.week);
-				setChart(response.data.chart.songs);
-				Chart && setIsLoading(false);
-			} else {
-				alert("Failed to search chart");
-			}
-		});
+		Axios.post("/api/chart/searchChart", variable)
+			.then((response) => response)
+			.then((response) => {
+				if (response.data.success) {
+					setWeek(response.data.chart.week);
+					setChart(response.data.chart.songs);
+					setIsLoading(false);
+				} else {
+					alert("Failed to search chart");
+				}
+			});
 	};
 	const renderList = Chart.map((song, index) => {
-		return <List chart={Chart} />;
+		return <List song={song} />;
 	});
 
 	return (
 		<>
 			<Jumbotron style={{ textAlign: "center" }}>
+				<br />
 				<h1>Select Date!</h1>
+
 				<form action='submit' onSubmit={handleSearch}>
 					<DatePicker
 						dateFormat='yyyy-MM-dd'
@@ -62,18 +66,19 @@ function SearchPage() {
 						onChange={(date) => setStartDate(date)}
 						showMonthDropdown
 						showYearDropdown
+						withPortal
 						dropdownMode='select'
 					/>
-					<br />
-					<br />
-					<Button
-						size='sm'
-						variant='outline-primary'
-						type='submit'
-						// onClick={handleSearch}
-					>
-						Search
-					</Button>
+					<div>
+						<Button
+							size='sm'
+							variant='outline-primary'
+							type='submit'
+							// onClick={handleSearch}
+						>
+							Search
+						</Button>
+					</div>
 				</form>
 			</Jumbotron>
 			<br />
@@ -84,7 +89,9 @@ function SearchPage() {
 						<Spinner animation='border' />
 					</div>
 				) : (
-					<div>{renderList}</div>
+					<Table style={{ verticalAlign: "middle" }} striped bordered hover>
+						{renderList}
+					</Table>
 				)}
 			</div>
 		</>

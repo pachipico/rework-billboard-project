@@ -5,6 +5,7 @@ import Badge from "react-bootstrap/Badge";
 import Image from "react-bootstrap/Image";
 
 function List({ song }) {
+	console.log("list", song);
 	let artist = song.artist;
 
 	const unNessessary = [" & ", " Featuring ", " X ", " + ", " x ", "Duet With"];
